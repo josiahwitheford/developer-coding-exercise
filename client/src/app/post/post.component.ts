@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpCollectorService } from '../http-collector.service';
 import { Post } from 'src/classes/post';
 import { ActivatedRoute } from '@angular/router';
+import { StateService } from '../state.service';
 
 
 @Component({
@@ -13,19 +14,10 @@ export class PostComponent implements OnInit {
 
   post = new Post();
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private stateService: StateService) {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      console.log('got params');
-      console.log(params);
-      this.post = new Post();
-      this.post.title = params.title;
-      this.post.author = params.author;
-      this.post.content = params.content;
-      this.post.tags = params.tags;
-      this.post.slug = params.slug;
-    })
+    this.post = this.stateService.selectedPost;
   }
 }

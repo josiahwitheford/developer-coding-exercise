@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpCollectorService } from '../http-collector.service';
 import { Post } from 'src/classes/post';
 import { Router } from '@angular/router';
+import { StateService } from '../state.service';
 
 @Component({
   selector: 'app-post-list',
@@ -13,7 +14,9 @@ export class PostListComponent implements OnInit {
   posts: Array<Post> = new Array<Post>();
   selectedPost: Post;
 
-  constructor(private http: HttpCollectorService, private router: Router) {
+  constructor(private http: HttpCollectorService,
+              private router: Router,
+              private stateService: StateService) {
     console.log('fetching posts from the server')
     this.http.getPosts().then((res) => {
       console.log('I have posts!!');
@@ -34,7 +37,7 @@ export class PostListComponent implements OnInit {
     console.log(item);
     this.selectedPost = await this.http.getPost(item.slug);
     console.log(`navigating to post ${item.slug}`);
-    console.log(this.selectedPost);
-    this.router.navigate([`/posts/${item.slug}`, this.selectedPost]);
+    this.stateService.selectedPost = this.selectedPost;
+    this.router.navigate([`/posts/${item.slug}`]);
   }
 }
