@@ -17,8 +17,15 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let sub = this.route.params.subscribe(params => {
-      this.post = params['selectedPost'];
+    this.route.params.subscribe(params => {
+      console.log('got params');
+      console.log(params);
+      this.post = new Post();
+      this.post.title = params.title;
+      this.post.author = params.author;
+      this.post.content = params.content;
+      this.post.tags = params.tags;
+      this.post.slug = params.slug;
     })
   }
 }

@@ -1,3 +1,4 @@
+<h1>Posts</h1>
 <ul *ngFor="let item of posts;">
   <li (click)="click(item)"><a routerLink="['/posts/{{item?.slug}}', selectedPost]">{{item?.slug}}</a></li>
 </ul>

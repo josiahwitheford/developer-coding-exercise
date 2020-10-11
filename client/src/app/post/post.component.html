@@ -1,4 +1,8 @@
-<div [innerHTML]="post?.content"></div>
-<h2>Tags</h2>
-<h3>{{post?.tags}}</h3>
-<router-outlet></router-outlet>
+<div class='wrapper'>
+  <h1>{{post?.title}}</h1>
+  <h2>{{post?.author}}</h2>
+  <div [innerHTML]="post?.content"></div>
+  <h2>Tags</h2>
+  <h3>{{post?.tags}}</h3>
+  <router-outlet></router-outlet>
+</div>
