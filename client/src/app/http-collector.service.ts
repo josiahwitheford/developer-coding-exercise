@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Post } from '../classes/post';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +25,17 @@ export class HttpCollectorService {
 
   }
 
-  public getPost(postTitle: string): Promise<any> {
+  public getPost(postTitle: string): Promise<Post> {
     let url = `http://${this.urlBase}/posts/api/posts/${postTitle}`
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe((res) => {
-        resolve(res)
+        let post = new Post();
+        post.title = res['title'];
+        post.author = res['author'];
+        post.slug = res['slug'];
+        post.content = res['content'];
+        post.tags = res['tags'];
+        resolve(post)
       }, error => {
         reject(error);
       })

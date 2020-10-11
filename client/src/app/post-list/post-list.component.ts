@@ -32,25 +32,9 @@ export class PostListComponent implements OnInit {
   async click(item) {
     console.log('item clicked');
     console.log(item);
-    this.selectedPost = await this.getPost(item.slug);
+    this.selectedPost = await this.http.getPost(item.slug);
     console.log(`navigating to post ${item.slug}`);
     console.log(this.selectedPost);
     this.router.navigate([`/posts/${item.slug}`, this.selectedPost]);
-  }
-
-  getPost(slug) {
-    return new Promise<Post>((resolve, reject) => {
-      this.http.getPost(slug).then((res) => {
-        let post = new Post();
-        post.title = res['title'];
-        post.author = res['author'];
-        post.content = res['content'];
-        post.tags = res['tags'];
-        resolve(post);
-      }, error => {
-        reject(error)
-      });
-    })
-
   }
 }
