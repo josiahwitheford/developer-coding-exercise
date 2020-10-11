@@ -1,10 +1,11 @@
 import os
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.core.files import File
 from django.shortcuts import get_object_or_404, render
 import markdown
 
 from .models import Post
+
 
 ASSETS_PATH = 'assets/posts/'
 # Feel free to move this to a new file if you are carrying out the 'tags' calculation there
@@ -51,3 +52,21 @@ def create_model_for_post_md(slug):
 
 def extract_prop_from_line(line):
     return line.split(':')[1].strip()
+
+def apiPost(request, slug):
+    try:
+        post = Post.objects.get(slug=slug)
+    except Post.DoesNotExist:
+        return HttpResponseNotFound('<h1>Page not found</h1>')
+    
+    post_json = {
+        'title': post.title,
+        'author': post.author,
+        'content': post.formatted_markdown(),
+        'tags': post.tags
+    }
+    return JsonResponse(post_json, safe=False)
+
+def apiPosts(request):
+    posts = [post.slug for post in Post.objects.all()]
+    return JsonResponse(posts, safe=False)
