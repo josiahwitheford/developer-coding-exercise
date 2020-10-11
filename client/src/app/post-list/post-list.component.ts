@@ -35,6 +35,7 @@ export class PostListComponent implements OnInit {
     this.selectedPost = await this.getPost(item.slug);
     console.log(`navigating to post ${item.slug}`);
     console.log(this.selectedPost);
+    this.router.navigate([`/posts/${item.slug}`, this.selectedPost]);
   }
 
   getPost(slug) {

@@ -16,8 +16,6 @@ export class HttpCollectorService {
     let url = `http://${this.urlBase}/posts/api/posts/`;
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe((res) => {
-        console.log('got posts');
-        console.log(res);
         resolve(res)
       }, error => {
         reject(error);
@@ -30,8 +28,6 @@ export class HttpCollectorService {
     let url = `http://${this.urlBase}/posts/api/posts/${postTitle}`
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe((res) => {
-        console.log('got post');
-        console.log(res);
         resolve(res)
       }, error => {
         reject(error);

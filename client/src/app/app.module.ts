@@ -9,13 +9,8 @@ import { PostListComponent } from './post-list/post-list.component';
 import { PostComponent } from './post/post.component';
 
 const routes: Routes = [
-  {path: 'posts', component: PostListComponent, children: [
-    {
-      path: "**",
-      component: PostComponent,
-      pathMatch: 'full'
-    }
-  ]},
+  {path: 'posts', component: PostListComponent},
+  {path: 'posts/:slug', component: PostComponent},
   {path: '', redirectTo: '/posts', pathMatch: 'full'}
 ]
 
