@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class PostListComponent implements OnInit {
 
   posts: Array<Post> = new Array<Post>();
+  selectedPost: Post;
 
   constructor(private http: HttpCollectorService, private router: Router) {
     console.log('fetching posts from the server')
@@ -28,9 +29,27 @@ export class PostListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  click(item) {
+  async click(item) {
     console.log('item clicked');
     console.log(item);
-    this.router.navigate([`/posts/${item}`]);
+    this.selectedPost = await this.getPost(item.slug);
+    console.log(`navigating to post ${item.slug}`);
+    console.log(this.selectedPost);
+  }
+
+  getPost(slug) {
+    return new Promise<Post>((resolve, reject) => {
+      this.http.getPost(slug).then((res) => {
+        let post = new Post();
+        post.title = res['title'];
+        post.author = res['author'];
+        post.content = res['content'];
+        post.tags = res['tags'];
+        resolve(post);
+      }, error => {
+        reject(error)
+      });
+    })
+
   }
 }
