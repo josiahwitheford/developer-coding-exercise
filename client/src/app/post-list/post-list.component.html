@@ -1,0 +1,4 @@
+<ul *ngFor="let item of posts;">
+  <li (click)="click(item)"><a routerLink="/posts/{{item?.slug}}">{{item?.slug}}</a></li>
+</ul>
+<router-outlet></router-outlet>
