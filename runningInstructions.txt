@@ -1,0 +1,13 @@
+To run this project...
+
+You will need 2 terminals and a browser.
+
+In the first terminal window, navigate to the root directory and run the following
+  `./run_django.sh`
+
+In the second terminal window, navigate to ./client and run:
+  `ng serve`
+
+You should now have the django API running in the first window on port 3000 and the angular app running in the second window on port 4200.
+
+Navigate to localhost:4200/posts to view the application
