@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'posts'
+    'posts',
+    'markdownx',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +120,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Asset Files (markdown for articles)
+ASSETS_PATH = 'assets/posts/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'assets/posts/')
